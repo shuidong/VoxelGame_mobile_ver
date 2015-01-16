@@ -15,6 +15,11 @@ public class VirtualJoyStick : MonoBehaviour {
 	private UISprite touchPad;
 	[SerializeField] // Create block & delete 메소드를 얻어오기 위한 스크립트 변수.
 	private ModifyTerrain modifyTerrian;
+	[SerializeField]
+	private AudioClip blockPickSound;
+	[SerializeField]
+	private AudioClip blockSelectSound;
+
 
 	private float playerSpeed;
 
@@ -83,7 +88,7 @@ public class VirtualJoyStick : MonoBehaviour {
 				}
 			}
 		}
-
+		// test code by jjw
 		if(movingCharacterFlag == true)
 			MovingCharacter();
 	}
@@ -165,12 +170,14 @@ public class VirtualJoyStick : MonoBehaviour {
 	public void DeleteBlock()
 	{
 		modifyTerrian.ReplaceBlockCenter(0);
+		audio.PlayOneShot(blockPickSound, 1.0f);
 		modifyTerrian.StartLoadChunks();
 	}
 
 	public void CreateBlock()
 	{
 		modifyTerrian.AddBlockCenter(SelectBlock.GetCurBlock());
+		audio.PlayOneShot(blockPickSound, 1.0f);
 		modifyTerrian.StartLoadChunks();
 	}
 }
